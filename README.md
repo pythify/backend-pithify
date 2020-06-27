@@ -10,10 +10,10 @@ To see all documentation visit this note pad in [Notion](https://www.notion.so/C
   
 ## Backend-Stack 
   
-Pyhon
-Django
-MySql
-Google Cloud
+- Pyhon
+- Django
+- MySql
+- Google Cloud
 
 ### What we gonna do
 
