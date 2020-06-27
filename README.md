@@ -21,3 +21,4 @@ To see all documentation visit this note pad in [Notion](https://www.notion.so/C
 - [x] Build the conection between MySQL and Django modeling all the tables with the Django's ORM
 - [x] Create whole the page views according to the [FrontendViews]() to share within the content
 - [x] Edit and config the Django's user-admin manager tool to fit to our App
+- [x] Follow the atomic design methology
