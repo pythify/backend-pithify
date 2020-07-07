@@ -47,6 +47,7 @@ THIRD_PARTY_APPS = [
 ]
 LOCAL_APPS = [
     'ceol.users.apps.UsersAppConfig',
+    'ceol.player.apps.PlayerApp',
 ]
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
