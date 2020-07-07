@@ -1,9 +1,3 @@
-<<<<<<< HEAD
-Comparte Ride
-=============
-
-Group-bounded, invite-only, carpooling platform
-=======
 # backend-pithify-team
 
 - DataBase manager [Angel Ricardo Estrada Sevilla]()
@@ -18,7 +12,7 @@ To see all documentation visit this note pad in [Notion](https://www.notion.so/C
   
 - Pyhon
 - Django
-- MySql
+- Postgres SQL
 - Google Cloud
 
 ### What we gonna do
