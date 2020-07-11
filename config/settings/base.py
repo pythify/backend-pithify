@@ -44,10 +44,12 @@ DJANGO_APPS = [
 ]
 
 THIRD_PARTY_APPS = [
+    'rest_framework',
+    'rest_framework.authtoken',
 ]
 LOCAL_APPS = [
     'ceol.users.apps.UsersAppConfig',
-    'ceol.player.apps.PlayerApp',
+    'ceol.player.apps.PlayerAppConfig',
 ]
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
@@ -154,3 +156,15 @@ CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
 CELERYD_TASK_TIME_LIMIT = 5 * 60
 CELERYD_TASK_SOFT_TIME_LIMIT = 60
+
+#DJANGO REST_FRAMEWORK
+REST_FRAMEWORK = {
+    'DEFAUL_RENDERER_CLASSES': (
+        'rest_framework.renderrs.JSONRenderer',
+    ),
+    'DEFAULT_AUTHENTICATION_CLASSES':(
+        'rest_framework.authentication.TokenAuthentication',
+    ),
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    'PAGE_SIZE':10,
+}
