@@ -98,6 +98,7 @@ class UserLoginSerializer(serializers.Serializer):
     def create(self, data):
         """Generate or retrieve new token"""
         token, created = Token.objects.get_or_create(user=self.context['user'])
+        return self.context['user'], token.key
 
 class AccountVerificationSerializer(serializers.Serializer):
     """Account Verification Serializer."""
@@ -117,12 +118,12 @@ class AccountVerificationSerializer(serializers.Serializer):
         self.context['payload'] = payload
         return data
 
-        def save(self):
-            """Update user's verified status"""
-            payload = self.context['payload']
-            user = User.objects.get(username=payload['user'])
-            user.is_verified = True
-            user.save()
+    def save(self):
+        """Update user's verified status"""
+        payload = self.context['payload']
+        user = User.objects.get(username=payload['user'])
+        user.is_verified = True
+        user.save()
         
 
 
