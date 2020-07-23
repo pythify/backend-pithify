@@ -11,5 +11,6 @@ urlpatterns = [
     path(settings.ADMIN_URL, admin.site.urls),
     #CEOL users
     path('', include(('ceol.users.urls', 'users'), namespace='users')),
+    path('', include(('ceol.player.urls', 'player'), namespace='player')),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

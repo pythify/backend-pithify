@@ -4,7 +4,8 @@
 from rest_framework import serializers
 
 #Model
-from ceol.player.models import Artist, Album, Genre
+from ceol.player.models import Artist, Album, Song
+
 
 class ArtistModelSerializer(serializers.ModelSerializer):
     """Artist Model Serializer"""
@@ -13,16 +14,31 @@ class ArtistModelSerializer(serializers.ModelSerializer):
         """Meta Class"""
         model = Artist
         fields = (
-            'id_artist', 'name',
-            'last_name',
+            'artist_name', 'slug_name',
+            'last_name'
         )
 
 class AlbumModelSerializer(serializers.ModelSerializer):
     """Album model Serializer"""
+    artist = ArtistModelSerializer(read_only=True)
 
     class Meta:
+        """Meta class."""
         model = Album
         fields = (
-            'id_album', 'album_name',
-            'artist_id',
+            'artist',
+            'id',
+            'slug_name',  
+            'total_songs', 'release_date',
         )    
+
+class SongModelSerializer(serializers.ModelSerializer):
+    """Song model serializer."""
+
+    class Meta:
+        """Meta class."""
+        model = Song
+        fields = (
+            'name', 'album',
+            'time','track_number'
+        )

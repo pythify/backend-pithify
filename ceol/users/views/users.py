@@ -55,7 +55,7 @@ class UserViewSet(mixins.RetrieveModelMixin,
     def signup(self, request):
         """User signup"""
 
-        serializer = UserSignUpSerializer(data=request.data)
+        serializer = UserSignUpSerializer(data =request.data)
         serializer.is_valid(raise_exception=True)
         user = serializer.save()
         data = UserModelSerializer(user).data
