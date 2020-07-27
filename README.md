@@ -13,7 +13,9 @@ To see all documentation visit this note pad in [Notion](https://www.notion.so/C
 - Pyhon
 - Django
 - Postgres SQL
-- Google Cloud
+- Redis
+- Celery
+- AWS Cloud
 
 ### What we gonna do
 
