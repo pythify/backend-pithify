@@ -16,6 +16,8 @@ from ceol.users.models import User
 from datetime import timedelta
 import jwt
 import time
+import requests
+import json
 
 @task(name='send_confirmation_email', max_retries=3)
 def send_confirmation_email(user_pk):
@@ -43,3 +45,28 @@ def gen_verification_token(user):
     }
     token = jwt.encode(payload, settings.SECRET_KEY, algorithm='HS256')
     return token.decode()
+
+@task(name='search artist', max_retries=3)
+def someSearch(query):
+    url = "https://deezerdevs-deezer.p.rapidapi.com/search"
+    querystring = {"q":query}
+    headers = {
+        'x-rapidapi-host': "deezerdevs-deezer.p.rapidapi.com",
+        'x-rapidapi-key': "292b7df762msh8d462e70b1e0dbap14fbf1jsn6e68782d54cf"
+        }
+    response = requests.request("GET", url, headers=headers, params=querystring)
+    json_data = response.text
+    searchdict = json.loads(json_data)["data"]
+    artist = {}
+    for result in searchdict:
+        artist['id'] = result["id"]
+        artist['title'] = result["title"]
+        artist['duration'] = result["duration"]
+        artist['url_track'] = result["preview"]
+        artist['artist_id'] = result["artist"]["id"]
+        artist['name'] = result["artist"]["name"]
+        artist['album_id'] = result["album"]["id"]
+        artist['album_name'] = result["album"]["title"]
+        artist['album_cover'] = result["album"]["cover"]
+    return artist
+
