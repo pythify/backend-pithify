@@ -16,6 +16,8 @@ from ceol.users.models import User
 from datetime import timedelta
 import jwt
 import time
+import requests
+import json
 
 @task(name='send_confirmation_email', max_retries=3)
 def send_confirmation_email(user_pk):
@@ -43,3 +45,46 @@ def gen_verification_token(user):
     }
     token = jwt.encode(payload, settings.SECRET_KEY, algorithm='HS256')
     return token.decode()
+
+@task(name='search artist', max_retries=3)
+def someSearch(query, type_of_search):
+    url = "https://deezerdevs-deezer.p.rapidapi.com/search"
+    querystring = {"q":query}
+    headers = {
+        'x-rapidapi-host': "deezerdevs-deezer.p.rapidapi.com",
+        'x-rapidapi-key': "292b7df762msh8d462e70b1e0dbap14fbf1jsn6e68782d54cf"
+        }
+    response = requests.request("GET", url, headers=headers, params=querystring) # Json Object
+    
+    if type_of_search == 'artist':
+        return artistSearch(response)
+
+""" Dezeer API modules """
+def jsonParser(response):
+
+    json_data = response.text # String
+    result_dictionary = json.loads(json_data) # Parse String to Python Dictionary
+        
+    return result_dictionary
+
+def artistFilter(response):
+    # Json parser to Python Dict
+    raw_results = jsonParser(response)
+        
+    my_new_list=[]
+    artists = {}
+
+    for item in searchdict['data']:
+        if item['artist']['name'] not in my_new_list:
+            my_new_list.append(item['artist'])
+
+    artists['data'] = my_new_list
+    artists['next'] = searchdict['next']    
+
+    return artists
+
+
+if __name__ == "__main__":
+    r = someSearch('queen', 'artist')
+    
+    pprint.pprint(r)

@@ -15,7 +15,7 @@ class ArtistModelSerializer(serializers.ModelSerializer):
         model = Artist
         fields = (
             'artist_name', 'slug_name',
-            'last_name'
+            'last_name', 'picture'
         )
 
 class AlbumModelSerializer(serializers.ModelSerializer):
@@ -25,12 +25,8 @@ class AlbumModelSerializer(serializers.ModelSerializer):
     class Meta:
         """Meta class."""
         model = Album
-        fields = (
-            'artist',
-            'id',
-            'slug_name',  
-            'total_songs', 'release_date',
-        )    
+        fields = '__all__'
+        
 
 class SongModelSerializer(serializers.ModelSerializer):
     """Song model serializer."""
