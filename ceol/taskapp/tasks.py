@@ -47,17 +47,25 @@ def gen_verification_token(user):
     return token.decode()
 
 @task(name='search artist', max_retries=3)
-def someSearch(query, type_of_search):
-    url = "https://deezerdevs-deezer.p.rapidapi.com/search"
-    querystring = {"q":query}
-    headers = {
-        'x-rapidapi-host': "deezerdevs-deezer.p.rapidapi.com",
-        'x-rapidapi-key': "292b7df762msh8d462e70b1e0dbap14fbf1jsn6e68782d54cf"
-        }
-    response = requests.request("GET", url, headers=headers, params=querystring) # Json Object
+def search_query(query, type_of_search):
+    try:
+        url = "https://deezerdevs-deezer.p.rapidapi.com/search"
+        querystring = {"q":query}
+        headers = {
+            'x-rapidapi-host': "deezerdevs-deezer.p.rapidapi.com",
+            'x-rapidapi-key': "292b7df762msh8d462e70b1e0dbap14fbf1jsn6e68782d54cf"
+            }
+        response = requests.request("GET", url, headers=headers, params=querystring) # Json Object
     
-    if type_of_search == 'artist':
-        return artistSearch(response)
+        if type_of_search == 'artist':
+            return artistFilter(response)
+        if type_of_search == 'album':
+            return albumFilter(response)
+        if type_of_search == 'songs':
+            return songFilter(response)
+    except expression as identifier:
+        return {'error' :'FATAL ERROR'}
+
 
 """ Dezeer API modules """
 def jsonParser(response):
@@ -74,17 +82,43 @@ def artistFilter(response):
     my_new_list=[]
     artists = {}
 
-    for item in searchdict['data']:
+    for item in raw_results['data']:
         if item['artist']['name'] not in my_new_list:
             my_new_list.append(item['artist'])
 
     artists['data'] = my_new_list
-    artists['next'] = searchdict['next']    
+    artists['next'] = raw_results['next']    
 
     return artists
 
+def albumFilter(response):
+    # Json parser to Python Dict
+    raw_results = jsonParser(response)
+        
+    my_new_list=[]
+    albums = {}
 
-if __name__ == "__main__":
-    r = someSearch('queen', 'artist')
-    
-    pprint.pprint(r)
+    for item in raw_results['data']:
+        if item['album']['title'] not in my_new_list:
+            my_new_list.append(item['album'])
+
+    albums['data'] = my_new_list
+    albums['next'] = raw_results['next']    
+
+    return albums
+
+def songFilter(response):
+
+    # Json parser to Python Dict
+    raw_results = jsonParser(response)
+        
+    my_new_list=[]
+    albums = {}
+
+    for item in raw_results['data']:
+        my_new_list.append(item)
+
+    songs['data'] = my_new_list
+    songs['next'] = raw_results['next']    
+
+    return songs
