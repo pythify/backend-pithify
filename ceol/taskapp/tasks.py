@@ -122,4 +122,4 @@ def songFilter(response):
     songs['data'] = my_new_list
     songs['next'] = raw_results['next']    
 
-    return songs
+    return raw_results
