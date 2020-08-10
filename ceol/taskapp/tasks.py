@@ -25,7 +25,7 @@ def send_confirmation_email(user_pk):
     user = User.objects.get(pk=user_pk)
     verification_token = gen_verification_token(user)
     subject = f'Welcome @{user.username}! Verify your account to start using Ceol'
-    from_email = 'CEOL <noreply@ceol.com> '
+    from_email = 'CEOL <noreply@ceolapi.xyz> '
     content = render_to_string(
         'emails/users/account_verification.html',
         {'token':verification_token, 'user': user}

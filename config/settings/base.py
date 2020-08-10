@@ -8,7 +8,7 @@ APPS_DIR = ROOT_DIR.path('ceol')
 env = environ.Env()
 
 # Base
-DEBUG = env.bool('DJANGO_DEBUG', False)
+DEBUG = env.bool('DJANGO_DEBUG', True)
 
 # Language and timezone
 TIME_ZONE = 'America/Mexico_City'
