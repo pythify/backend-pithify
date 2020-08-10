@@ -109,13 +109,14 @@ def albumFilter(response):
 
 def songFilter(response):
 
-    # Json parser to Python Dict
+    # Json parser to Pythons Dict
     raw_results = jsonParser(response)
         
     my_new_list=[]
     albums = {}
 
     for item in raw_results['data']:
+        newitem = {}
         my_new_list.append(item)
 
     songs['data'] = my_new_list
