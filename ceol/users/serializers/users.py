@@ -28,7 +28,7 @@ from ceol.taskapp.tasks import send_confirmation_email
 class UserModelSerializer(serializers.ModelSerializer):
     """User model Serializer."""
     profile = ProfileModelSerializer(read_only=True)
-
+    
     class Meta:
         """Meta class."""
         model = User
