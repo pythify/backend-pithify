@@ -67,7 +67,7 @@ DEFAULT_FROM_EMAIL = env(
     default='CEOL <noreply@ceolapi.xyz>'
 )
 SERVER_EMAIL = env('DJANGO_SERVER_EMAIL', default=DEFAULT_FROM_EMAIL)
-EMAIL_SUBJECT_PREFIX = env('DJANGO_EMAIL_SUBJECT_PREFIX', default='[Ceol api]')
+EMAIL_SUBJECT_PREFIX = env('DJANGO_EMAIL_SUBJECT_PREFIX', default='[Ceol music]')
 
 # Admin
 ADMIN_URL = env('DJANGO_ADMIN_URL')
