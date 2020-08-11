@@ -6,6 +6,9 @@ from django.template.loader import render_to_string
 from django.core.mail import EmailMultiAlternatives
 from django.utils import timezone
 
+#Environ
+from config.settings.base import env
+
 #Celery
 from celery.decorators import task, periodic_task
 
@@ -53,17 +56,19 @@ def search_query(query, type_of_search):
         querystring = {"q":query}
         headers = {
             'x-rapidapi-host': "deezerdevs-deezer.p.rapidapi.com",
-            'x-rapidapi-key': "292b7df762msh8d462e70b1e0dbap14fbf1jsn6e68782d54cf"
+            'x-rapidapi-key': env('DEEZER_API_KEY')
             }
         response = requests.request("GET", url, headers=headers, params=querystring) # Json Object
     
         if type_of_search == 'artist':
             return artistFilter(response)
-        if type_of_search == 'album':
+        elif type_of_search == 'album':
             return albumFilter(response)
-        if type_of_search == 'songs':
+        elif type_of_search == 'songs':
             return songFilter(response)
-    except expression as identifier:
+    except Exception as identifier:
+        print(type_of_search)
+        print(identifier)
         return {'error' :'FATAL ERROR'}
 
 
@@ -113,7 +118,7 @@ def songFilter(response):
     raw_results = jsonParser(response)
         
     my_new_list=[]
-    albums = {}
+    songs = {}
 
     for item in raw_results['data']:
         my_new_list.append(item)

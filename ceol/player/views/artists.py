@@ -11,7 +11,7 @@ from rest_framework.permissions import IsAuthenticated
 from ceol.player.serializers import ArtistModelSerializer
 
 #Celery
-from ceol.taskapp.tasks import someSearch
+from ceol.taskapp.tasks import search_query
 
 #Models
 from ceol.player.models import Artist
@@ -26,8 +26,8 @@ class ArtistViewSet(mixins.RetrieveModelMixin,
     permission_classes = (IsAuthenticated,)
     lookup_field = 'slug_name'
 
-    @action(detail=False, methods=['get'])
+    @action(detail=False, methods=['get'], url_path='')
     def search(self, request, *args, **kwargs):
-        return Response(someSearch('Eminem'))
+        return Response(search_query('Eminem'))
 
 
