@@ -86,6 +86,9 @@ INSTALLED_APPS += ['gunicorn']  # noqa F405
 # WhiteNoise
 MIDDLEWARE.insert(1, 'whitenoise.middleware.WhiteNoiseMiddleware')  # noqa F405
 
+INSTALLED_APPS += ['corsheaders'] 
+MIDDLEWARE.insert(0, 'corsheaders.middleware.CorsMiddleware')
+CORS_ORIGIN_ALLOW_ALL = True
 
 # Logging
 # A sample logging configuration. The only tangible logging
