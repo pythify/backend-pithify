@@ -12,3 +12,6 @@ django-anymail[mailgun]
 
 #incompatibilites
 django-utils-six
+
+#Cors policies
+django-cors-headers
