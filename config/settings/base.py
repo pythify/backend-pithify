@@ -88,6 +88,7 @@ MIDDLEWARE = [
 ]
 
 
+
 # Static files
 STATIC_ROOT = str(ROOT_DIR('staticfiles'))
 STATIC_URL = '/static/'
